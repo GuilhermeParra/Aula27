@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "VDkbrgG7BtksVg+U1BdxgATui/nq0WQpHoacjh2D3ZC56/wDWHavOfOD/vVkOyyMSNWiHNib6v8M4GOf8h5zcA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\parra\\OneDrive\\Documentos\\Senai\\Aula27_28_29_30\\Aula27_28_29_30.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\parra\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.2\\microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
+  ],
+  "logs": []
+}
