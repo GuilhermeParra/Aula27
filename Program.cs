@@ -9,11 +9,11 @@ namespace Aula27_28_29_30
         {
             Produto p1 = new Produto();
             p1.Codigo = 3;
-            p1.Nome = "The Witcher 3";
-            p1.Preco = 200.00f;
+            p1.Nome = "Tagima";
+            p1.Preco = 7500f;
 
             p1.Cadastrar(p1);
-
+            p1.Remover("The Witcher 3");
             
             List<Produto> lista = p1.Ler();
             lista = p1.Ler();

@@ -1,5 +1,6 @@
 using System.IO;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Aula27_28_29_30
 {
@@ -8,7 +9,7 @@ namespace Aula27_28_29_30
         public int Codigo { get; set; }
         public string Nome { get; set; }
         public float Preco { get; set; }
-        private const string PATH = "Database/Produto.csv" ;
+        private const string PATH = "Database/Produto.csv";
 
 
         public Produto(){
@@ -63,8 +64,15 @@ namespace Aula27_28_29_30
 
                     
                 }
+                produtos = produtos.OrderBy(y => y.Nome).ToList();
                 return produtos;
             }
+
+            
+            public List<Produto> Filtrar(string _nome){
+                return Ler().FindAll(x => x.Nome == _nome);
+            }
+
             private string Separar(string _coluna){
 
                 //0      1
@@ -78,6 +86,28 @@ namespace Aula27_28_29_30
 
                 return $"Codigo={p.Codigo};Nome={p.Nome};Preco={p.Preco}";
 
+        }
+        public void Remover(string _termo){
+
+            //Criando uma lista de string para salvar as linhas do csv
+            List<string> linhas = new List<string>();
+
+            //Utilizando o using para abrir e fechar o arquivo com a base de dados
+            using(StreamReader file = new StreamReader(PATH)){
+                //Lendo o arquivo
+                string line;
+                while ((line = file.ReadLine())!= null){
+                    linhas.Add(line);
+                }
+                //Removendo todas as linhas que tenha o termo
+                linhas.RemoveAll(l => l.Contains(_termo));
+            }
+            //Reescrevendo o arquivo
+            using (StreamWriter output = new StreamWriter(PATH)){
+                foreach(string ln in linhas){
+                output.Write(ln + "\n");
+                }
+            }
         }
     }
 }
