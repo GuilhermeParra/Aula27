@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,7 +70,7 @@ namespace Aula27_28_29_30
             }
 
             
-            public List<Produto> Filtrar(string _nome){
+           /* public List<Produto> Filtrar(string _nome){
                 return Ler().FindAll(x => x.Nome == _nome);
             }
 
@@ -86,7 +87,7 @@ namespace Aula27_28_29_30
 
                 return $"Codigo={p.Codigo};Nome={p.Nome};Preco={p.Preco}";
 
-        }
+        }*/
         public void Remover(string _termo){
 
             //Criando uma lista de string para salvar as linhas do csv
@@ -109,5 +110,62 @@ namespace Aula27_28_29_30
                 }
             }
         }
+        public void Alterar(Produto produtoAlterado){
+            //Criando uma lista de string para salvar as linhas do csv
+            List<string> linhas = new List<string>();
+
+            //Utilizando o using para abrir e fechar o arquivo com a base de dados
+            using(StreamReader file = new StreamReader(PATH)){
+                //Lendo o arquivo
+                string line;
+                while ((line = file.ReadLine())!= null){
+                    linhas.Add(line);
+                }
+            }
+                //0
+                //codigo =3; nome=Tagima; preco= 7500
+                //linhas.RemoveAll(x => x.Split(";")[0].Contains(produtoAlterado.Codigo.ToString()));
+
+                linhas.RemoveAll(z => z.Split(";")[0].Split("=")[1] == produtoAlterado.Codigo.ToString());
+                linhas.Add(PrepararLinha(produtoAlterado));
+
+                ReescreverCSV(linhas);
+                
+
+               
+                }
+                /// <summary>
+                /// Reescreve o CSV
+                /// </summary>
+                /// <param name="lines">Lista de linhas</param>
+                
+                private void ReescreverCSV(List<string> linhas){
+                     using (StreamWriter output = new StreamWriter(PATH)){
+                foreach(string ln in linhas){
+                output.Write(ln + "\n");
+                }
+            }
+        }
+
+            public List<Produto> Filtrar(string _nome){
+                return Ler().FindAll(x => x.Nome == _nome);
+            }
+
+            private string Separar(string _coluna){
+
+                //0      1
+                //nome = Gibson
+                return _coluna.Split ("=")[1];
+
+            }
+
+            //1;Celular;600
+             private string PrepararLinha(Produto p){
+
+                return $"Codigo={p.Codigo};Nome={p.Nome};Preco={p.Preco}";
+
+        }
+        
     }
+    
 }
